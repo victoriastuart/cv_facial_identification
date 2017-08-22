@@ -1,0 +1,731 @@
+
+==============================================================================
+INSTALLATION: { OPENCV | DLIB | TORCH7 | OPENFACE } in PYTHON 2.7 VENV
+
+/mnt/Vancouver/apps/openface/a_Victoria - Installation Notes - { OpenCV | Dlib | Torch7 | OpenFace } in Python 2.7 venv.txt
+
+2016-Oct-28
+==============================================================================
+
+[2016-Oct-28]
+
+ALL IN p2 [Python 2.7] venv
+
+[2016-Oct-28] AFTER OpenCV install
+
+(py27) [victoria@victoria build]$ P
+
+      [P: python]
+    Python 2.7.12 |Anaconda custom (64-bit)| (default, Jul  2 2016, 17:42:40)
+    [GCC 4.4.7 20120313 (Red Hat 4.4.7-1)] on linux2
+    Type "help", "copyright", "credits" or "license" for more information.
+    Anaconda is brought to you by Continuum Analytics.
+    Please check out: http://continuum.io/thanks and https://anaconda.org
+
+    >>> import cv2
+
+    >>> import dlib
+        Traceback (most recent call last):
+          File "<stdin>", line 1, in <module>
+        ImportError: No module named dlib
+
+    >>> import numpy
+    >>> import scipy
+    >>> import sklearn
+    >>> import skimage
+    >>>
+
+(py27) [victoria@victoria build]$
+
+==============================================================================
+1. OPENCV
+=========
+
+* INSTALL NOTES:
+
+    /mnt/Vancouver/apps/opencv-git/readme - Victoria - OpenCV installations (GitHub; Anaconda).txt
+
+------------------------------------------------------------------------------
+
+conda remove opencv
+sudo pacman -R opencv-samples
+sudo pacman -R opencv
+
+cd /mnt/Vancouver/apps/opencv-git/opencv/           ## my git repo
+
+git commit -m ""
+git stash
+git pull
+
+rm -fR build
+mkdir build
+
+cd build                                            ## /mnt/Vancouver/apps/opencv-git/opencv/build
+
+cmake -DWITH_JPEG=OFF -DBUILD_JPEG=OFF ..           ## takes a several minute; long-standing bug in the OpenCV libjpeg library,
+                                                    ## that when included results in (Logitech C270 webcam; others) capture errors
+
+make                                                ## takes several minutes [much output!]
+
+sudo make install                                   ## needs to modify a system (host) file(s)
+                                                    ## runtime paths of "/usr/local/bin/..." set to to "/usr/local/lib"
+
+sudo make clean
+
+------------------------------------------------------------------------------
+
+SUCCESS!  NOTE - IMPORTANT:  In Python, you import OpenCV as
+
+    import cv2
+
+NOT
+
+    import opencv
+
+    cv2.__version__
+        '3.1.0'
+
+----------------------------------------
+
+[victoria@victoria build]$ date
+    Fri Oct 28 16:55:57 PDT 2016
+
+[victoria@victoria build]$ pwd
+    /mnt/Vancouver/apps/opencv-git/opencv/build
+
+[victoria@victoria build]$ P
+
+  [P: python]
+    Python 3.5.2 (default, Jun 28 2016, 08:46:01)
+    [GCC 6.1.1 20160602] on linux
+    Type "help", "copyright", "credits" or "license" for more information.
+
+    >>> import cv2
+    Traceback (most recent call last):
+      File "<stdin>", line 1, in <module>
+    ImportError: No module named 'cv2'
+    >>>
+
+[victoria@victoria build]$ p2
+  [Anaconda Python 2.7 venv (source activate py27)]
+
+(py27) [victoria@victoria build]$ P
+  [P: python]
+
+    Python 2.7.12 |Anaconda custom (64-bit)| (default, Jul  2 2016, 17:42:40)
+    [GCC 4.4.7 20120313 (Red Hat 4.4.7-1)] on linux2
+    Type "help", "copyright", "credits" or "license" for more information.
+    Anaconda is brought to you by Continuum Analytics.
+    Please check out: http://continuum.io/thanks and https://anaconda.org
+    >>> import cv2
+    >>>
+
+(py27) [victoria@victoria build]$ p3
+  [Anaconda Python 3.5 venv (source activate py35)]
+
+    (py35) [victoria@victoria build]$ P
+      [P: python]
+    Python 3.5.2 (default, Jun 28 2016, 08:46:01)
+    [GCC 6.1.1 20160602] on linux
+    Type "help", "copyright", "credits" or "license" for more information.
+
+    >>> import cv2
+
+    >>> import opencv
+    Traceback (most recent call last):
+      File "<stdin>", line 1, in <module>
+    ImportError: No module named 'opencv'
+    >>>
+
+(py35) [victoria@victoria build]$
+
+
+==============================================================================
+2. DLIB
+=======
+
+* INSTALL NOTES:
+
+    /mnt/Vancouver/apps/dlib/a_VICTORIA/dlib installation (Victoria).txt
+
+(py27) [victoria@victoria build]$ date
+    Fri Oct 28 17:15:00 PDT 2016
+
+(py27) [victoria@victoria build]$ pwd
+    /mnt/Vancouver/apps/dlib/build
+
+(py27) [victoria@victoria dlib]$ pip list | egrep -i 'scikit|scipy|boost'
+
+    scikit-image (0.12.3)
+    scikit-learn (0.17.1)
+    scipy (0.17.1)
+
+(py27) [victoria@victoria dlib]$ pip install dlib
+
+    Collecting dlib
+      Using cached dlib-19.1.0.tar.gz
+    Building wheels for collected packages: dlib
+      Running setup.py bdist_wheel for dlib ... \       ## takes a few minutes
+      Running setup.py bdist_wheel for dlib ... done
+      Stored in directory: /home/victoria/.cache/pip/wheels/b8/dc/75/974ef3c4d5f6b471d1b2f25bc52ea2c79aa93aae4e30d54a46
+    Successfully built dlib
+    Installing collected packages: dlib
+    Successfully installed dlib-19.1.0
+
+(py27) [victoria@victoria dlib]$ P
+
+      [P: python]
+    Python 2.7.12 |Anaconda custom (64-bit)| (default, Jul  2 2016, 17:42:40)
+    [GCC 4.4.7 20120313 (Red Hat 4.4.7-1)] on linux2
+    Type "help", "copyright", "credits" or "license" for more information.
+    Anaconda is brought to you by Continuum Analytics.
+    Please check out: http://continuum.io/thanks and https://anaconda.org
+    >>> import cv2
+    >>> import dlib
+    >>> import numpy
+    >>> import scipy
+    >>> import sklearn
+    >>> import skimage
+    >>>
+
+(py27) [victoria@victoria dlib]$
+
+----------------------------------------
+
+    import dlib
+
+    dlib.__version__
+        '19.1.0'
+
+
+==============================================================================
+3. TORCH [TORCH7]
+=================
+
+* INSTALLATION NOTES:
+
+    file:///mnt/Vancouver/apps/torch7/a_Victoria - Torch [Torch7] Installation Notes.txt
+
+------------------------------------------------------------------------------
+
+From that prior installation (above; earlier this week), it appears that Torch7 is installed, system-wide!  Yes: never "installed" in py27, tf ...:
+
+[2016-Oct-28]
+
+[victoria@victoria torch7]$ th
+
+      ______             __   |  Torch7
+     /_  __/__  ________/ /   |  Scientific computing for Lua.
+      / / / _ \/ __/ __/ _ \  |  Type ? for help
+     /_/  \___/_/  \__/_//_/  |  https://github.com/torch
+                              |  http://torch.ch
+
+    th> ^C^C
+
+[victoria@victoria torch7]$ p2
+  [Anaconda Python 2.7 venv (source activate py27)]
+
+(py27) [victoria@victoria torch7]$ th
+
+      ______             __   |  Torch7
+     /_  __/__  ________/ /   |  Scientific computing for Lua.
+      / / / _ \/ __/ __/ _ \  |  Type ? for help
+     /_/  \___/_/  \__/_//_/  |  https://github.com/torch
+                              |  http://torch.ch
+
+    th> ^C^C
+
+(py27) [victoria@victoria torch7]$ sd
+  [Anaconda venv deactivate (source deactivate)]
+
+[victoria@victoria torch7]$ tf
+  [TensorFlow in Anaconda Python 2.7 venv (source activate tf-env]
+
+(tf-env) [victoria@victoria torch7]$ th
+
+      ______             __   |  Torch7
+     /_  __/__  ________/ /   |  Scientific computing for Lua.
+      / / / _ \/ __/ __/ _ \  |  Type ? for help
+     /_/  \___/_/  \__/_//_/  |  https://github.com/torch
+                              |  http://torch.ch
+
+    th> ^C^C
+
+(tf-env) [victoria@victoria torch7]$
+
+
+==============================================================================
+4. OPENFACE
+===========
+
+* Pre-install and/or checks:
+
+    OpenCV (import: cv2)
+    Dlib
+    Torch (Torch7)
+    SciPy
+    scikit-learn (import: sklearn)
+    scikit-image (import: skimage)
+
+----------------------------------------
+
+* Py35 INSTALL NOTES (earlier this week):
+
+    /mnt/Vancouver/apps/openface.py35/a_Victoria - OpenFace Installation Notes.txt
+    /mnt/Vancouver/apps/openface.py35/a_Victoria - OpenFace in Python 3 - Debugging, Usage Notes.txt
+
+That install moved to
+
+    /mnt/Vancouver/apps/openface.py35       ## was .../openface
+
+Openface is a Python 3 package!! Install it there (Py27 venv)!!
+
+----------------------------------------
+
+* Dependencies (installed in p2 | py27 | Python 2.7 venv); working -- can import:
+
+    OpenCV : /mnt/Vancouver/apps/opencv-git     ## import cv2 works in Py27
+      Dlib : /mnt/Vancouver/apps/dlib           ## import dlib works in Py27
+     Torch : /mnt/Vancouver/apps/torch7         ## th executes in bash (terminal: $ )
+
+
+------------------------------------------------------------------------------
+
+[victoria@victoria ~]$ p2
+  [Anaconda Python 2.7 venv (source activate py27)]
+
+(py27) [victoria@victoria ~]$ cdva
+
+(py27) [victoria@victoria apps]$ date
+    Fri Oct 28 20:40:09 PDT 2016
+
+(py27) [victoria@victoria apps]$ pwd
+/mnt/Vancouver/apps
+
+(py27) [victoria@victoria apps]$ gc https://github.com/cmusatyalab/openface
+
+    Cloning into 'openface'...
+    remote: Counting objects: 4561, done.
+    remote: Compressing objects: 100% (8/8), done.
+    remote: Total 4561 (delta 3), reused 0 (delta 0), pack-reused 4553
+    Receiving objects: 100% (4561/4561), 23.77 MiB | 2.89 MiB/s, done.
+    Resolving deltas: 100% (2744/2744), done.
+
+(py27) [victoria@victoria apps]$ cd openface
+
+(py27) [victoria@victoria openface]$ pwd
+    /mnt/Vancouver/apps/openface
+
+(py27) [victoria@victoria openface]$ l
+
+    total 100K
+    drwxr-xr-x 3 victoria victoria 4.0K Oct 28 20:40 api-docs
+    drwxr-xr-x 2 victoria victoria 4.0K Oct 28 20:40 batch-represent
+    -rwxr-xr-x 1 victoria victoria  128 Oct 28 20:40 cloc.sh
+    -rw-r--r-- 1 victoria victoria  708 Oct 28 20:40 CONTRIBUTING.md
+    drwxr-xr-x 5 victoria victoria 4.0K Oct 28 20:40 data
+    drwxr-xr-x 3 victoria victoria 4.0K Oct 28 20:40 demos
+    -rw-r--r-- 1 victoria victoria  887 Oct 28 20:40 Dockerfile
+    drwxr-xr-x 4 victoria victoria 4.0K Oct 28 20:40 docs
+    drwxr-xr-x 9 victoria victoria 4.0K Oct 28 20:40 evaluation
+    drwxr-xr-x 5 victoria victoria 4.0K Oct 28 20:40 images
+    -rw-r--r-- 1 victoria victoria  12K Oct 28 20:40 LICENSE
+    -rw-r--r-- 1 victoria victoria  795 Oct 28 20:40 mkdocs.yml
+    drwxr-xr-x 4 victoria victoria 4.0K Oct 28 20:40 models
+    -rw-r--r-- 1 victoria victoria 2.7K Oct 28 20:40 opencv-dlib-torch.Dockerfile
+    drwxr-xr-x 2 victoria victoria 4.0K Oct 28 20:40 openface
+    -rw-r--r-- 1 victoria victoria 4.5K Oct 28 20:40 README.md
+    -rw-r--r-- 1 victoria victoria  132 Oct 28 20:40 requirements.txt
+    -rwxr-xr-x 1 victoria victoria   56 Oct 28 20:40 run-tests.sh
+    -rw-r--r-- 1 victoria victoria  284 Oct 28 20:40 setup.py
+    drwxr-xr-x 2 victoria victoria 4.0K Oct 28 20:40 tests
+    drwxr-xr-x 4 victoria victoria 4.0K Oct 28 20:40 training
+    drwxr-xr-x 2 victoria victoria 4.0K Oct 28 20:40 util
+
+(py27) [victoria@victoria openface]$ python setup.py  install
+
+    running install
+    running build
+    running build_py
+    creating build
+    creating build/lib
+    creating build/lib/openface
+    copying openface/data.py -> build/lib/openface
+    copying openface/torch_neural_net.lutorpy.py -> build/lib/openface
+    copying openface/torch_neural_net.py -> build/lib/openface
+    copying openface/__init__.py -> build/lib/openface
+    copying openface/helper.py -> build/lib/openface
+    copying openface/align_dlib.py -> build/lib/openface
+    copying openface/openface_server.lua -> build/lib/openface
+    running install_lib
+    creating /home/victoria/anaconda3/envs/py27/lib/python2.7/site-packages/openface
+    copying build/lib/openface/data.py -> /home/victoria/anaconda3/envs/py27/lib/python2.7/site-packages/openface
+    copying build/lib/openface/torch_neural_net.lutorpy.py -> /home/victoria/anaconda3/envs/py27/lib/python2.7/site-packages/openface
+    copying build/lib/openface/torch_neural_net.py -> /home/victoria/anaconda3/envs/py27/lib/python2.7/site-packages/openface
+    copying build/lib/openface/__init__.py -> /home/victoria/anaconda3/envs/py27/lib/python2.7/site-packages/openface
+    copying build/lib/openface/helper.py -> /home/victoria/anaconda3/envs/py27/lib/python2.7/site-packages/openface
+    copying build/lib/openface/align_dlib.py -> /home/victoria/anaconda3/envs/py27/lib/python2.7/site-packages/openface
+    copying build/lib/openface/openface_server.lua -> /home/victoria/anaconda3/envs/py27/lib/python2.7/site-packages/openface
+    byte-compiling /home/victoria/anaconda3/envs/py27/lib/python2.7/site-packages/openface/data.py to data.pyc
+    byte-compiling /home/victoria/anaconda3/envs/py27/lib/python2.7/site-packages/openface/torch_neural_net.lutorpy.py to torch_neural_net.lutorpy.pyc
+    byte-compiling /home/victoria/anaconda3/envs/py27/lib/python2.7/site-packages/openface/torch_neural_net.py to torch_neural_net.pyc
+    byte-compiling /home/victoria/anaconda3/envs/py27/lib/python2.7/site-packages/openface/__init__.py to __init__.pyc
+    byte-compiling /home/victoria/anaconda3/envs/py27/lib/python2.7/site-packages/openface/helper.py to helper.pyc
+    byte-compiling /home/victoria/anaconda3/envs/py27/lib/python2.7/site-packages/openface/align_dlib.py to align_dlib.pyc
+    running install_egg_info
+    Writing /home/victoria/anaconda3/envs/py27/lib/python2.7/site-packages/openface-0.2.1-py2.7.egg-info
+
+(py27) [victoria@victoria openface]$ pip list | grep nose
+    nose (1.3.7)
+
+(py27) [victoria@victoria openface]$ conda list | grep nose
+    nose                      1.3.7                    py27_0
+
+(py27) [victoria@victoria openface]$ bash run-tests.sh
+    run-tests.sh: line 7: nosetests-2.7: command not found      ## JUST IGNORE this test!!
+
+(py27) [victoria@victoria openface]$ cd models/
+
+(py27) [victoria@victoria models]$ l
+
+    total 12K
+    drwxr-xr-x 2 victoria victoria 4.0K Oct 28 20:40 dlib
+    -rwxr-xr-x 1 victoria victoria 3.0K Oct 28 20:40 get-models.sh
+    drwxr-xr-x 2 victoria victoria 4.0K Oct 28 20:40 openface
+
+------------------------------------------------------------------------------
+OPENFACE INSTALLED IN P2 VENV!
+==============================
+
+(py27) [victoria@victoria models]$ P
+      [P: python]
+    Python 2.7.12 |Anaconda custom (64-bit)| (default, Jul  2 2016, 17:42:40)
+    [GCC 4.4.7 20120313 (Red Hat 4.4.7-1)] on linux2
+    Type "help", "copyright", "credits" or "license" for more information.
+    Anaconda is brought to you by Continuum Analytics.
+    Please check out: http://continuum.io/thanks and https://anaconda.org
+    >>> import openface
+    >>> [Ctrl-D]
+
+------------------------------------------------------------------------------
+DOWNLOAD PRE-TRAINED MODELS:
+============================
+
+## https://cmusatyalab.github.io/openface/setup/#by-hand
+
+## Run models/get-models.sh to download pre-trained OpenFace models on the combined CASIA-WebFace and FaceScrub database.
+## This also downloads dlib's pre-trained model for face landmark detection. This will incur about 200MB of network traffic.
+
+(py27) [victoria@victoria models]$ bash get-models.sh       ## << NOTE!  doesn't appear to be doing anything first several minutes; just wait ...
+
+    ====================================================
+    Downloading dlib's public domain face landmarks model.
+    Reference: https://github.com/davisking/dlib-models
+
+    This will incur about 60MB of network traffic for the compressed
+    models that will decompress to about 100MB on disk.
+    ====================================================
+
+    2016-10-28 20:50:33 URL:http://openface-models.storage.cmusatyalab.org/nn4.small2.v1.t7 [31510785/31510785] -> "openface/nn4.small2.v1.t7" [1]
+    2016-10-28 20:50:42 URL:http://openface-models.storage.cmusatyalab.org/celeb-classifier.nn4.small2.v1.pkl [4471339/4471339] -> "openface/celeb-classifier.nn4.small2.v1.pkl" [1]
+
+    ====================================================
+    Verifying checksums.
+    ====================================================
+
+    + dlib/shape_predictor_68_face_landmarks.dat: successfully checked
+    + openface/celeb-classifier.nn4.small2.v1.pkl: successfully checked
+    + openface/nn4.small2.v1.t7: successfully checked
+
+(py27) [victoria@victoria models]$
+
+
+==============================================================================
+USAGE -- SEQUENCE:
+==================
+
+----------------------------------------
+# [OpenFace] PRE-PROCESS INPUT IMAGES:
+
+time python ./util/align-dlib.py ./training-images/ align outerEyesAndNose ./aligned-images/ --size 96
+
+----------------------------------------
+## [Torch] GENERATE EMBEDDINGS (REPRESENTATIONS) FROM THE ALIGNED IMAGES:
+## IF RE-TRAINING, FIRST DELETE THE OLD CACHE: /mnt/Vancouver/apps/openface/aligned-images/cache.t7
+
+./batch-represent/main.lua -outDir ./generated-embeddings/ -data ./aligned-images/
+
+----------------------------------------
+## [sklearn] TRAIN LINEAR SVM CLASSIFIER:
+
+python ./demos/classifier.py train ./generated-embeddings/
+
+----------------------------------------
+## [sklearn] INFERENCE (PREDICTION:
+
+python  ./demos/classifier.py  infer  ./generated-embeddings/classifier.pkl  ./test-images/test_image-1.jpg
+
+
+==============================================================================
+TESTS
+=====
+
+[2016-Oct-28]
+
+(py27) [victoria@victoria models]$ pwd
+    /mnt/Vancouver/apps/openface/models
+
+(py27) [victoria@victoria models]$ cd..
+
+(py27) [victoria@victoria openface]$ python ./util/align-dlib.py ./training-images/ align outerEyesAndNose ./aligned-images/ --size 96
+
+    === ./training-images/dani/dani-12.jpg ===
+    === ./training-images/carmine/carmine-54.jpg ===
+    === ./training-images/carmine/carmine-24.jpg ===
+    === ./training-images/victoria/victoria-41.jpg ===
+    === ./training-images/carmine/carmine-49.jpg ===
+    === ./training-images/victoria/victoria-20.jpg ===
+    === ./training-images/carmine/carmine-63.jpg ===
+    === ./training-images/carmine/carmine-26.jpg ===
+    === ./training-images/victoria/victoria-26.jpg ===
+    === ./training-images/carmine/carmine-09.jpg ===
+    === ./training-images/carmine/carmine-38.jpg ===
+    === ./training-images/carmine/carmine-48.jpg ===
+    === ./training-images/carmine/carmine-42.jpg ===
+    === ./training-images/carmine/carmine-15.jpg ===
+    === ./training-images/victoria/victoria-12.jpg ===
+    === ./training-images/carmine/carmine-33.jpg ===
+    === ./training-images/victoria/victoria-09.jpg ===
+    === ./training-images/victoria/victoria-10.jpg ===
+    === ./training-images/victoria/victoria-33.jpg ===
+    === ./training-images/carmine/carmine-62.jpg ===
+    === ./training-images/victoria/victoria-29.jpg ===
+    === ./training-images/carmine/carmine-34.jpg ===
+    === ./training-images/victoria/victoria-01.jpg ===
+    === ./training-images/carmine/carmine-55.jpg ===
+    === ./training-images/carmine/carmine-61.jpg ===
+    === ./training-images/victoria/victoria-06.jpg ===
+    === ./training-images/carmine/carmine-59.jpg ===
+    === ./training-images/victoria/victoria-37.jpg ===
+    === ./training-images/victoria/victoria-15.jpg ===
+    === ./training-images/carmine/carmine-36.jpg ===
+    === ./training-images/victoria/victoria-07.jpg ===
+    === ./training-images/victoria/victoria-23.jpg ===
+    === ./training-images/dani/dani-09.jpg ===
+    === ./training-images/dani/dani-10.jpg ===
+    === ./training-images/carmine/carmine-45.jpg ===
+    === ./training-images/carmine/carmine-28.jpg ===
+    === ./training-images/carmine/carmine-19.jpg ===
+    === ./training-images/victoria/victoria-30.jpg ===
+    === ./training-images/victoria/victoria-50.jpg ===
+    === ./training-images/carmine/carmine-29.jpg ===
+    === ./training-images/carmine/carmine-08.jpg ===
+    === ./training-images/carmine/carmine-14.jpg ===
+    === ./training-images/victoria/victoria-49.jpg ===
+    === ./training-images/dani/dani-13.jpg ===
+    === ./training-images/victoria/victoria-08.jpg ===
+    === ./training-images/carmine/carmine-23.jpg ===
+    === ./training-images/victoria/victoria-40.jpg ===
+    === ./training-images/carmine/carmine-06.jpg ===
+    === ./training-images/carmine/carmine-25.jpg ===
+    === ./training-images/carmine/carmine-32.jpg ===
+    === ./training-images/victoria/victoria-43.jpg ===
+    === ./training-images/victoria/victoria-48.jpg ===
+    === ./training-images/victoria/victoria-22.jpg ===
+    === ./training-images/carmine/carmine-12.jpg ===
+    === ./training-images/victoria/victoria-24.jpg ===
+    === ./training-images/carmine/carmine-56.jpg ===
+    === ./training-images/carmine/carmine-05.jpg ===
+    === ./training-images/victoria/victoria-34.jpg ===
+    === ./training-images/carmine/carmine-35.jpg ===
+    === ./training-images/victoria/victoria-13.jpg ===
+    === ./training-images/carmine/carmine-40.jpg ===
+    === ./training-images/carmine/carmine-53.jpg ===
+    === ./training-images/dani/dani-14.jpg ===
+    === ./training-images/carmine/carmine-21.jpg ===
+    === ./training-images/victoria/victoria-45.jpg ===
+    === ./training-images/carmine/carmine-13.jpg ===
+    === ./training-images/dani/dani-07.jpg ===
+    === ./training-images/victoria/victoria-05.jpg ===
+    === ./training-images/carmine/carmine-02.jpg ===
+    === ./training-images/victoria/victoria-11.jpg ===
+    === ./training-images/carmine/carmine-50.jpg ===
+    === ./training-images/victoria/victoria-02.jpg ===
+    === ./training-images/carmine/carmine-30.jpg ===
+    === ./training-images/carmine/carmine-41.jpg ===
+    === ./training-images/carmine/carmine-17.jpg ===
+    === ./training-images/victoria/victoria-44.jpg ===
+    === ./training-images/victoria/victoria-46.jpg ===
+    === ./training-images/victoria/victoria-28.jpg ===
+    === ./training-images/victoria/victoria-47.jpg ===
+    === ./training-images/carmine/carmine-46.jpg ===
+    === ./training-images/victoria/victoria-18.jpg ===
+    === ./training-images/victoria/victoria-04.jpg ===
+    === ./training-images/victoria/victoria-27.jpg ===
+    === ./training-images/carmine/carmine-18.jpg ===
+    === ./training-images/victoria/victoria-36.jpg ===
+    === ./training-images/victoria/victoria-31.jpg ===
+    === ./training-images/victoria/victoria-38.jpg ===
+    === ./training-images/carmine/carmine-60.jpg ===
+    === ./training-images/carmine/carmine-20.jpg ===
+    === ./training-images/dani/dani-06.jpg ===
+    === ./training-images/dani/dani-05.jpg ===
+    === ./training-images/victoria/victoria-42.jpg ===
+    === ./training-images/carmine/carmine-22.jpg ===
+    === ./training-images/victoria/victoria-19.jpg ===
+    === ./training-images/victoria/victoria-16.jpg ===
+    === ./training-images/carmine/carmine-57.jpg ===
+    === ./training-images/dani/dani-03.jpg ===
+    === ./training-images/victoria/victoria-03.jpg ===
+    === ./training-images/carmine/carmine-37.jpg ===
+    === ./training-images/dani/dani-08.jpg ===
+    === ./training-images/carmine/carmine-47.jpg ===
+    === ./training-images/carmine/carmine-27.jpg ===
+    === ./training-images/victoria/victoria-21.jpg ===
+    === ./training-images/carmine/carmine-44.jpg ===
+    === ./training-images/carmine/carmine-64.jpg ===
+    === ./training-images/carmine/carmine-04.jpg ===
+    === ./training-images/carmine/carmine-16.jpg ===
+    === ./training-images/victoria/victoria-17.jpg ===
+    === ./training-images/dani/dani-11.jpg ===
+    === ./training-images/victoria/victoria-25.jpg ===
+    === ./training-images/carmine/carmine-31.jpg ===
+    === ./training-images/victoria/victoria-32.jpg ===
+    === ./training-images/carmine/carmine-07.jpg ===
+    === ./training-images/dani/dani-01.jpg ===
+    === ./training-images/carmine/carmine-11.jpg ===
+    === ./training-images/carmine/carmine-58.jpg ===
+    === ./training-images/carmine/carmine-52.jpg ===
+    === ./training-images/carmine/carmine-10.jpg ===
+    === ./training-images/victoria/victoria-35.jpg ===
+    === ./training-images/victoria/victoria-39.jpg ===
+    === ./training-images/dani/dani-04.jpg ===
+    === ./training-images/carmine/carmine-01.jpg ===
+    === ./training-images/carmine/carmine-39.jpg ===
+    === ./training-images/dani/dani-02.jpg ===
+    === ./training-images/carmine/carmine-03.jpg ===
+    === ./training-images/carmine/carmine-51.jpg ===
+    === ./training-images/victoria/victoria-14.jpg ===
+
+(py27) [victoria@victoria openface]$ ./batch-represent/main.lua -outDir ./generated-embeddings/ -data ./aligned-images/
+
+    {
+      data : "./aligned-images/"
+      imgDim : 96
+      model : "/mnt/Vancouver/apps/openface/models/openface/nn4.small2.v1.t7"
+      device : 1
+      outDir : "./generated-embeddings/"
+      cache : false
+      cuda : false
+      batchSize : 50
+    }
+    ./aligned-images/
+    cache lotation:         /mnt/Vancouver/apps/openface/aligned-images/cache.t7
+    Creating metadata for cache.
+    {
+      sampleSize :
+        {
+          1 : 3
+          2 : 96
+          3 : 96
+        }
+      split : 0
+      verbose : true
+      paths :
+        {
+          1 : "./aligned-images/"
+        }
+      samplingMode : "balanced"
+      loadSize :
+        {
+          1 : 3
+          2 : 96
+          3 : 96
+        }
+    }
+    running "find" on each class directory, and concatenate all those filenames into a single file containing all image paths for a given class
+    now combine all the files to a single large file
+    load the large concatenated list of sample paths to self.imagePath
+    122 samples found......................... 0/122 .......................................]  ETA: 0ms | Step: 0ms
+    Updating classList and imageClass appropriately
+     [======================================== 3/3 ========================================>]  Tot: 13ms | Step: 4ms
+    Cleaning up temporary files
+    Splitting training and test sets to a ratio of 0/100
+    nImgs:  122
+    Represent: 50/122
+    Represent: 100/122
+    Represent: 122/122
+    (py27) [victoria@victoria openface]$ python ./demos/classifier.py train ./generated-embeddings/
+    /home/victoria/anaconda3/envs/py27/lib/python2.7/site-packages/sklearn/lda.py:4: DeprecationWarning: lda.LDA has been moved to discriminant_analysis.LinearDiscriminantAnalysis in 0.17 and will be removed in 0.19
+      "in 0.17 and will be removed in 0.19", DeprecationWarning)
+    Loading embeddings.
+    Training for 3 classes.
+    Saving classifier to './generated-embeddings//classifier.pkl'
+
+[victoria@victoria openface]$ python  ./demos/classifier.py  infer  ./generated-embeddings/classifier.pkl  ./test-images/test_image-1
+
+    /home/victoria/anaconda3/envs/py27/lib/python2.7/site-packages/sklearn/lda.py:4: DeprecationWarning: lda.LDA has been moved to discriminant_analysis.LinearDiscriminantAnalysis in 0.17 and will be removed in 0.19
+      "in 0.17 and will be removed in 0.19", DeprecationWarning)
+
+    === ./test-images/test_image-1.jpg ===
+    Predict carmine with 0.73 confidence.
+
+(py27) [victoria@victoria openface]$ python  ./demos/classifier.py  infer  ./generated-embeddings/classifier.pkl  ./test-images/test_image-2.jpg
+
+    /home/victoria/anaconda3/envs/py27/lib/python2.7/site-packages/sklearn/lda.py:4: DeprecationWarning: lda.LDA has been moved to discriminant_analysis.LinearDiscriminantAnalysis in 0.17 and will be removed in 0.19
+      "in 0.17 and will be removed in 0.19", DeprecationWarning)
+
+    === ./test-images/test_image-2.jpg ===
+    Predict carmine with 0.99 confidence.
+
+(py27) [victoria@victoria openface]$ python  ./demos/classifier.py  infer  ./generated-embeddings/classifier.pkl  ./test-images/test_image-3.jpg
+
+    /home/victoria/anaconda3/envs/py27/lib/python2.7/site-packages/sklearn/lda.py:4: DeprecationWarning: lda.LDA has been moved to discriminant_analysis.LinearDiscriminantAnalysis in 0.17 and will be removed in 0.19
+      "in 0.17 and will be removed in 0.19", DeprecationWarning)
+
+    === ./test-images/test_image-3.jpg ===
+    Predict carmine with 0.96 confidence.
+
+(py27) [victoria@victoria openface]$ python  ./demos/classifier.py  infer  ./generated-embeddings/classifier.pkl  ./test-images/test_image-4.jpg
+
+    /home/victoria/anaconda3/envs/py27/lib/python2.7/site-packages/sklearn/lda.py:4: DeprecationWarning: lda.LDA has been moved to discriminant_analysis.LinearDiscriminantAnalysis in 0.17 and will be removed in 0.19
+      "in 0.17 and will be removed in 0.19", DeprecationWarning)
+
+    === ./test-images/test_image-4.jpg ===
+    Predict victoria with 0.98 confidence.
+
+(py27) [victoria@victoria openface]$ python  ./demos/classifier.py  infer  ./generated-embeddings/classifier.pkl  ./test-images/test_image-5.jpg
+
+    /home/victoria/anaconda3/envs/py27/lib/python2.7/site-packages/sklearn/lda.py:4: DeprecationWarning: lda.LDA has been moved to discriminant_analysis.LinearDiscriminantAnalysis in 0.17 and will be removed in 0.19
+      "in 0.17 and will be removed in 0.19", DeprecationWarning)
+
+    === ./test-images/test_image-5.jpg ===
+    Predict victoria with 0.98 confidence.
+
+(py27) [victoria@victoria openface]$ python  ./demos/classifier.py  infer  ./generated-embeddings/classifier.pkl  ./test-images/test_image-6.jpg
+
+    /home/victoria/anaconda3/envs/py27/lib/python2.7/site-packages/sklearn/lda.py:4: DeprecationWarning: lda.LDA has been moved to discriminant_analysis.LinearDiscriminantAnalysis in 0.17 and will be removed in 0.19
+      "in 0.17 and will be removed in 0.19", DeprecationWarning)
+
+    === ./test-images/test_image-6.jpg ===
+    Predict carmine with 0.98 confidence.
+
+(py27) [victoria@victoria openface]$ python  ./demos/classifier.py  infer  ./generated-embeddings/classifier.pkl  ./test-images/test_image-7.jpg
+
+    /home/victoria/anaconda3/envs/py27/lib/python2.7/site-packages/sklearn/lda.py:4: DeprecationWarning: lda.LDA has been moved to discriminant_analysis.LinearDiscriminantAnalysis in 0.17 and will be removed in 0.19
+      "in 0.17 and will be removed in 0.19", DeprecationWarning)
+
+    === ./test-images/test_image-7.jpg ===
+    Predict victoria with 0.96 confidence.
+
+(py27) [victoria@victoria openface]$
+
+
+==============================================================================
+==============================================================================
+END OF FILE
+==============================================================================
+==============================================================================
+
+
+
