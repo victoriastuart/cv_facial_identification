@@ -13,6 +13,6 @@ Dependencies:
 * Dlib
 * Openface
 
-Provided "as-is."  I don't have a GPU, but the code ran remarkably well!
+Provided "as-is."  See the code for setails, documentation.
 
-The uploaded video (screen capture) shows the final "product."
+I don't have a GPU, but the code ran remarkably well!  The uploaded video (screen capture) shows the final "product."
