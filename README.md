@@ -16,4 +16,4 @@ Dependencies:
 
 Provided "as-is."  See the code for details, documentation.  I'll also upload my personal installation notes re: those libraries (Arch Linux x86_64 system; ...).  You'll need to train your own classifier, of course, on your own images, ...
 
-I don't have a GPU, but the code ran remarkably well!  The uploaded video (screen capture) shows the final "product."
+This code, executed on a CPU (Intel Core i7-4790 CPU @ 3.60 GHz x 4 cores, hyper-threaded to 8 threads; 32GB RAM), ran remarkably wellm, as shown in the uploaded video (screen capture).  With a good GPU you could expect increases in speed (fps) of perhaps ≥10x.
