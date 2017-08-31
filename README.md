@@ -1,5 +1,5 @@
 # cv_facial_identification
-Personal facial recognition (webcam; computer vision: OpenCV; DLib; OpenFace; ...)
+Personal facial recognition (webcam; cv: computer vision: OpenCV; DLib; OpenFace; ...)
 
 My experiments (~Oct-Nov 2016) in computer vision: facial recognition / personal identification in webcam-streamed video.
 I trained a classifier to recognize my girlfriend and I.
